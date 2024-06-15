@@ -16,7 +16,9 @@ export default {
         <div class="button flex justify-center items-center gap-x-4">
             <searchbar />
             <router-link to="/login"
-                class="px-6 py-2 text-white font-semibold bg-blue-500 hover:bg-blue-600 transition duration-300 ease-in-out rounded">Masuk</router-link>
+                class="px-6 py-2 text-white bg-blue-500 hover:bg-blue-600 transition duration-300 ease-in-out rounded">
+                <i class="ri-login-box-line mr-1"></i>Masuk
+            </router-link>
         </div>
     </main>
 </template>
