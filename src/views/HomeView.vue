@@ -1,10 +1,9 @@
 <script setup>
-// import TheWelcome from '../components/TheWelcome.vue'
+import navigation from '../components/navigation.vue'
 </script>
 
 <template>
   <main>
-    Halo
-    <!-- <TheWelcome /> -->
+    <navigation />
   </main>
 </template>
