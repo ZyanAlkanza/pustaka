@@ -12,7 +12,7 @@
         </div>
         <div class="card w-2/5 px-8 p-2 bg-gray-100 rounded">
             <h1 class="mt-2 mb-6 text-center text-blue-500 text-2xl font-semibold">Registrasi</h1>
-            <form @submit.prevent="register" class="card flex gap-4">
+            <form @submit.prevent="register" class="card flex flex-row gap-4">
                 <div class="left-col w-1/2">
                     <div class="username flex flex-col gap-y-2">
                         <label for="username">Nama Pengguna</label>

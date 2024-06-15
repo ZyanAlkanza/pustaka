@@ -9,6 +9,10 @@
                 <i class="ri-check-line mr-2"></i>
                 {{ alert }}
             </span>
+            <span v-if="message" class="w-full p-4 mt-6 text-green-500 text-sm font-semibold bg-green-100 rounded">
+                <i class="ri-check-line mr-2"></i>
+                {{ message }}
+            </span>
         </div>
         <form @submit.prevent="login" class="card w-1/4 px-8 py-4 bg-gray-100 rounded">
             <h1 class="mt-2 mb-6 text-center text-blue-500 text-2xl font-semibold">Masuk</h1>
@@ -55,6 +59,7 @@ export default {
             errors: '',
             validations: '',
             token: '',
+            message: '',
         }
     },
     methods: {
@@ -71,21 +76,34 @@ export default {
                     if (response.data.data.role == 1) {
                         setTimeout(() => {
                             router.push('/')
-                        }, 1000);
+                        }, 1500);
                     } else if (response.data.data.role == 3) {
                         setTimeout(() => {
                             router.push('/')
-                        }, 1000);
+                        }, 1500);
                     }
                 })
                 .catch(error => {
                     this.errors = error.response.data;
+                    if (this.errors) {
+                        setTimeout(() => {
+                            this.errors = '';
+                        }, 1500);
+                    }
                     this.validations = error.response.data.data;
                 });
         }
 
     },
     mounted() {
+        this.message = this.$route.query.message;
+        if (this.message) {
+            setTimeout(() => {
+                this.message = '';
+                router.push('/login')
+            }, 1500);
+        }
+
         this.token = localStorage.getItem('token');
         if (this.token) {
             router.push('/');
