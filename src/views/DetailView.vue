@@ -1,18 +1,20 @@
 <template>
     <main class="h-full">
         <navigation />
-
         <section class="h-5/6 px-20 py-10 flex">
             <div class="w-2/6 flex justify-center">
-                <img src="/public/default_cover.png" class="h-full" alt="cover_buku">
+                <img :src="url + (book.image || '/default_cover.png')" class=" h-full" alt="cover_buku">
             </div>
             <div class="w-4/6">
-                <h1 class="text-2xl font-semibold">Sebuah Seni Untuk Bersikap Bodo Amat</h1>
-                <h3 class="text-gray-500 text-md font-semibold">Mark Manson</h3>
-                <h5 class="w-max px-4 py-1 my-4 text-blue-500 font-medium bg-blue-100 rounded">Tersedia</h5>
+                <h1 class="text-2xl font-semibold">{{ book.title }}</h1>
+                <h3 class="text-gray-500 text-md font-semibold">{{ book.author }}</h3>
+                <h5 v-if="book.status == 1" class="w-max px-4 py-1 my-4 text-blue-500 font-medium bg-blue-100 rounded">
+                    Tersedia</h5>
+                <h5 v-if="book.status == 2" class="w-max px-4 py-1 my-4 text-red-500 font-medium bg-red-100 rounded">
+                    Tidak Tersedia</h5>
                 <h5 class="mb-1 font-semibold">Detail Buku</h5>
                 <textarea name="book_detail" id="book_detail" maxlength="700" readonly
-                    class="w-5/6 h-[360px] resize-none focus:outline-none cursor-default">Buku Karya Mark Manson Berjudul Sebuah Seni Untuk Bersikap Bodo Amat
+                    class="w-5/6 h-[360px] resize-none focus:outline-none cursor-default">{{ book.book_detail }}
                 </textarea>
                 <div class="button mt-3 flex gap-4">
                     <button
@@ -29,10 +31,31 @@
 
 <script>
 import navigation from '@/components/navigation.vue';
+import axios from 'axios';
 
 export default {
     components: {
         navigation,
-    }
+    },
+    data() {
+        return {
+            book: '',
+            url: 'http://127.0.0.1:8000/storage/covers/'
+        }
+    },
+    methods: {
+        fetchbook() {
+            axios.get(`http://127.0.0.1:8000/api/book/${this.$route.params.id}`)
+                .then(response => {
+                    this.book = response.data.data;
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        }
+    },
+    mounted() {
+        this.fetchbook();
+    },
 }
 </script>
