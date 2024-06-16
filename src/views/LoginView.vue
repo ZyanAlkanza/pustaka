@@ -75,7 +75,7 @@ export default {
                     this.alert = response.data.message;
                     if (response.data.data.role == 1) {
                         setTimeout(() => {
-                            router.push('/')
+                            router.push('/dashboard')
                         }, 1500);
                     } else if (response.data.data.role == 3) {
                         setTimeout(() => {
