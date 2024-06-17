@@ -5,16 +5,16 @@
             <span class="ml-[-3px] text-3xl font-bold">ustaka</span>
         </div>
         <div class="menu h-[75%] mt-4 flex flex-col gap-y-2">
-            <a href="/dashboard"
+            <a href="/dashboard" :class="{ 'text-blue-500': $route.path === '/dashboard' }"
                 class="px-4 py-2 text-base hover:text-white hover:bg-blue-500 transition duration-300 ease-in-out"><i
                     class="ri-home-line mr-2"></i>Dashboard</a>
-            <a href="/users"
+            <a href="/users" :class="{ 'text-blue-500': $route.path === '/users' }"
                 class="px-4 py-2 text-base hover:text-white hover:bg-blue-500 transition duration-300 ease-in-out"><i
                     class="ri-user-6-line mr-2"></i>Pengguna</a>
-            <a href="/books"
+            <a href="/books" :class="{ 'text-blue-500': $route.path === '/books' }"
                 class="px-4 py-2 text-base hover:text-white hover:bg-blue-500 transition duration-300 ease-in-out"><i
                     class="ri-book-open-line mr-2"></i>Buku</a>
-            <a href="/transaction"
+            <a href="/transaction" :class="{ 'text-blue-500': $route.path === '/transaction' }"
                 class="px-4 py-2 text-base hover:text-white hover:bg-blue-500 transition duration-300 ease-in-out"><i
                     class="ri-file-transfer-line mr-2"></i>Transaksi</a>
         </div>
