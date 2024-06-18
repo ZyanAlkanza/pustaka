@@ -12,12 +12,12 @@
                 <table class="w-full table-fixed bg-white rounded">
                     <thead class="text-left">
                         <tr>
-                            <th scope="col" class="w-[3%] px-2 py-4">No</th>
-                            <th scope="col" class="w-[15%]">Nama</th>
-                            <th scope="col" class="w-[20%] px-2">Alamat</th>
-                            <th scope="col" class="w-[20%] px-2">Email</th>
-                            <th scope="col" class="w-[10%]">No Telp</th>
-                            <th scope="col" class="w-[20%] text-center">Aksi</th>
+                            <td scope="col" class="w-[3%] px-2 py-4 text-center">No</td>
+                            <td scope="col" class="w-[15%]">Nama</td>
+                            <td scope="col" class="w-[20%] px-2">Alamat</td>
+                            <td scope="col" class="w-[20%] px-2">Email</td>
+                            <td scope="col" class="w-[10%]">No Telp</td>
+                            <td scope="col" class="w-[20%] text-center">Aksi</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,21 +29,26 @@
                             <td class="px-2 truncate">{{ user.email }}</td>
                             <td class="">{{ user.phone }}</td>
                             <td class="text-center">
-                                <a href=""
-                                    class="px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">Detail</a>
-                                <a href=""
-                                    class="px-4 py-1 mx-2 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">Ubah</a>
-                                <button
-                                    class="px-4 py-1 text-red-500 hover:text-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out">Hapus</button>
+                                <router-link :to="`/userDetail/${user.id}`" title="Detail"
+                                    class="px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out"><i
+                                        class="ri-eye-line"></i></router-link>
+                                <a href="" title="Edit"
+                                    class="px-4 py-1 mx-2 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out"><i
+                                        class="ri-edit-line"></i></a>
+                                <button title="Hapus"
+                                    class="px-4 py-1 text-red-500 hover:text-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out"><i
+                                        class="ri-delete-bin-line"></i></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="px-4 mt-4 flex justify-end gap-4">
                     <button @click="fetchUsers(prev)" :disabled="!prev"
-                        :class="[{ 'disabled:opacity-50 disabled:cursor-not-allowed': !prev }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']">Sebelumnya</button>
+                        :class="[{ 'disabled:opacity-50 disabled:cursor-not-allowed': !prev }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']"><i
+                            class="ri-arrow-left-double-line"></i></button>
                     <button @click="fetchUsers(next)" :disabled="!next"
-                        :class="[{ 'disabled:opacity-50 disabled:cursor-not-allowed': !next }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']">Selanjutnya</button>
+                        :class="[{ 'disabled:opacity-50 disabled:cursor-not-allowed': !next }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']"><i
+                            class="ri-arrow-right-double-line"></i></button>
                 </div>
             </div>
         </section>
