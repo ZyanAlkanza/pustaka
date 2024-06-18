@@ -3,7 +3,7 @@
         <sidebar />
         <section class="w-5/6 px-5 py-4 bg-[#eaeaea]">
             <h1 class="py-3 text-xl font-semibold">Dashboard</h1>
-            <div class="card mt-4 grid grid-cols-4 gap-x-4">
+            <div class="card mt-2 grid grid-cols-4 gap-x-4">
                 <router-link to="/users" class="p-4 bg-white rounded text-center">
                     <div class="title"><i class="ri-user-6-line mr-2"></i>Total Pengguna</div>
                     <div class="data mt-2 text-4xl font-semibold">{{ transactionData.users }}</div>
@@ -28,6 +28,7 @@
 
 <script>
 import sidebar from '@/components/sidebar.vue'
+import router from '@/router';
 import axios from 'axios';
 
 export default {
@@ -37,6 +38,8 @@ export default {
     data() {
         return {
             transactionData: '',
+            token: '',
+            role: '',
         }
     },
     methods: {
@@ -51,6 +54,12 @@ export default {
         }
     },
     mounted() {
+        this.token = localStorage.getItem('token');
+        this.role = localStorage.getItem('role');
+        if (this.token == null || this.role != 1) {
+            router.push('/');
+        }
+
         this.fetchTransactionData();
     },
 }
