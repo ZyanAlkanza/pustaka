@@ -41,9 +41,9 @@
                                 <router-link :to="`/userDetail/${user.id}`" title="Detail"
                                     class="px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out"><i
                                         class="ri-eye-line"></i></router-link>
-                                <a href="" title="Edit"
+                                <router-link :to="`/userEdit/${user.id}`" title="Edit"
                                     class="px-4 py-1 mx-2 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out"><i
-                                        class="ri-edit-line"></i></a>
+                                        class="ri-edit-line"></i></router-link>
                                 <button title="Hapus"
                                     class="px-4 py-1 text-red-500 hover:text-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out"><i
                                         class="ri-delete-bin-line"></i></button>
