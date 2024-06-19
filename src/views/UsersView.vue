@@ -4,6 +4,10 @@
         <section class="w-5/6 px-5 py-4 bg-[#eaeaea]">
             <div class="header flex justify-between items-center">
                 <h1 class="py-3 text-xl font-semibold">Pengguna</h1>
+                <span v-if="message" class="w-2/6 p-4  text-green-500 text-sm font-semibold bg-green-100 rounded">
+                    <i class="ri-check-line mr-2"></i>
+                    {{ message }}
+                </span>
                 <div class="accessibility flex gap-4">
                     <input type="text"
                         class="h-max px-4 py-2 rounded focus:outline-none border-2 border-white focus:border-blue-500"
@@ -80,6 +84,7 @@ export default {
             },
             token: '',
             role: '',
+            message: '',
         }
     },
     methods: {
@@ -109,6 +114,14 @@ export default {
         this.role = localStorage.getItem('role');
         if (this.token == null || this.role != 1) {
             router.push('/');
+        }
+
+        this.message = this.$route.query.message;
+        if (this.message) {
+            setTimeout(() => {
+                this.message = '';
+                router.push('/users');
+            }, 1500);
         }
         this.fetchUsers();
     },
