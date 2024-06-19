@@ -6,6 +6,7 @@ import DetailView from '@/views/DetailView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import UsersView from '@/views/UsersView.vue'
 import UserDetailView from '@/views/UserDetailView.vue'
+import UserAddView from '@/views/UserAddView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/userDetail/:id',
       name: 'userDetail',
       component: UserDetailView
+    },
+    {
+      path: '/userAdd',
+      name: 'userAdd',
+      component: UserAddView
     }
 
     // {

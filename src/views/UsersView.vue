@@ -4,9 +4,14 @@
         <section class="w-5/6 px-5 py-4 bg-[#eaeaea]">
             <div class="header flex justify-between items-center">
                 <h1 class="py-3 text-xl font-semibold">Pengguna</h1>
-                <input type="text"
-                    class="h-max px-4 py-2 rounded focus:outline-none border-2 border-white focus:border-blue-500"
-                    placeholder="Pencarian">
+                <div class="accessibility flex gap-4">
+                    <input type="text"
+                        class="h-max px-4 py-2 rounded focus:outline-none border-2 border-white focus:border-blue-500"
+                        placeholder="Pencarian">
+                    <router-link to="/userAdd" title="Tambah Data"
+                        class="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded transition duration-300 ease-in-out"><i
+                            class="ri-add-large-line"></i></router-link>
+                </div>
             </div>
             <div class="table mt-2">
                 <table class="w-full table-fixed bg-white rounded">
