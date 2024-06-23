@@ -9,7 +9,7 @@
                     {{ message }}
                 </span>
                 <div class="accessibility flex gap-4">
-                    <input type="text"
+                    <input type="text" v-model="search" @input="searchData()"
                         class="h-max px-4 py-2 rounded focus:outline-none border-2 border-white focus:border-blue-500"
                         placeholder="Pencarian">
                     <router-link to="/userAdd" title="Tambah Data"
@@ -22,12 +22,12 @@
                 <table class="w-full table-fixed bg-white rounded">
                     <thead class="text-left">
                         <tr>
-                            <th scope="col" class="w-[3%] px-2 py-4 text-center">No</th>
-                            <th scope="col" class="w-[15%]">Nama</th>
-                            <th scope="col" class="w-[20%] px-2">Alamat</th>
-                            <th scope="col" class="w-[20%] px-2">Email</th>
-                            <th scope="col" class="w-[10%]">No Telp</th>
-                            <th scope="col" class="w-[20%] text-center">Aksi</th>
+                            <td scope="col" class="w-[3%] px-2 py-4 text-center">No</td>
+                            <td scope="col" class="w-[15%]">Nama</td>
+                            <td scope="col" class="w-[20%] px-2">Alamat</td>
+                            <td scope="col" class="w-[20%] px-2">Email</td>
+                            <td scope="col" class="w-[10%]">No Telp</td>
+                            <td scope="col" class="w-[20%] text-center">Aksi</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,14 +105,18 @@ export default {
             token: '',
             role: '',
             message: '',
-            userIdToDelete: null
+            userIdToDelete: null,
+            search: '',
         }
     },
     methods: {
-        fetchUsers(url = 'http://127.0.0.1:8000/api/users') {
+        fetchUsers(url = 'http://127.0.0.1:8000/api/users', search = '') {
             axios.get(url, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                params: {
+                    search: search
                 }
             })
                 .then(response => {
@@ -160,6 +164,9 @@ export default {
                     console.error('Failed to delete user', error.response.data);
                 })
         },
+        searchData() {
+            this.fetchUsers('http://127.0.0.1:8000/api/users', this.search);
+        }
     },
     mounted() {
         this.token = localStorage.getItem('token');
@@ -175,7 +182,7 @@ export default {
                 router.push('/users');
             }, 1500);
         }
-        this.fetchUsers();
+        this.fetchUsers(); // Load initial data without search
     },
 }
 </script>
