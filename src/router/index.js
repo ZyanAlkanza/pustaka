@@ -8,6 +8,7 @@ import UsersView from '@/views/UsersView.vue'
 import UserDetailView from '@/views/UserDetailView.vue'
 import UserAddView from '@/views/UserAddView.vue'
 import UserEditView from '@/views/UserEditView.vue'
+import BooksView from '@/views/BooksView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: '/userEdit/:id',
       name: 'userEdit',
       component: UserEditView
+    },
+    {
+      path:'/books',
+      name:'books',
+      component: BooksView
     }
 
     // {

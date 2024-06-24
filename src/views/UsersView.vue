@@ -73,7 +73,7 @@
             <div class="modal-box flex flex-col justify-center items-center">
                 <h3 class="font-bold text-lg text-red-500"><i class="ri-delete-bin-line mr-2"></i>Hapus Pengguna</h3>
                 <p class="py-4">Apakah Anda yakin ingin menghapus pengguna ini?</p>
-                <div class="modal-action flex gap-4">
+                <div class="modal-action gap-4">
                     <button @click="confirmDeleteUser"
                         class="px-6 py-2 text-red-500 hover:text-white bg-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out">Hapus</button>
                     <button @click="closeModal"
