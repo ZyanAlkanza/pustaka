@@ -8,19 +8,25 @@
             <div class="h-5/6 px-4 py-8 mt-2 bg-white flex rounded">
                 <div class="image w-2/6 flex justify-center">
 
-                    <!-- <img :src="userData.image ? url + userData.image : '/default_profile.png'"
-                        class="w-40 h-40 border-2 border-blue-500 rounded-full" alt="profile-image"> -->
-                    <img src="/public/default_cover.png" class=" rounded" alt="cover_buku">
+                    <img :src="book.image ? url + book.image : '/default_cover.png'" class=" rounded" alt="cover_buku">
                 </div>
                 <div class="info w-3/6 ml-4 flex flex-col">
                     <label class="text-sm text-gray-500">Judul Buku</label>
-                    <h5 class="mb-3">book</h5>
+                    <h5 class="mb-3">{{ book.title }}</h5>
                     <label class="text-sm text-gray-500">Penulis</label>
-                    <h5 class="mb-3">book</h5>
+                    <h5 class="mb-3">{{ book.author }}</h5>
                     <label class="text-sm text-gray-500">Status</label>
-                    <h5 class="mb-3">book</h5>
+                    <h5 v-if="book.status == 1"
+                        class="w-fit mt-1 mb-3 px-2 py-1 text-blue-500 text-xs font-semibold bg-blue-100 rounded">
+                        Tersedia
+                    </h5>
+                    <h5 v-if="book.status == 2"
+                        class="w-fit mt-1 mb-3 px-2 py-1 text-red-500 text-xs font-semibold bg-red-100 rounded">
+                        Tidak Tersedia
+                    </h5>
                     <label class="text-sm text-gray-500">Detail Buku</label>
-                    <h5 class="mb-3">book</h5>
+                    <textarea readonly
+                        class="h-80 mb-3 resize-none overflow-hidden focus:outline-none text-justify">{{ book.book_detail }}</textarea>
                 </div>
             </div>
         </section>
@@ -28,11 +34,38 @@
 </template>
 
 <script>
-import sidebar from '@/components/sidebar.vue'
+import sidebar from '@/components/sidebar.vue';
+import axios from 'axios';
 
 export default {
     components: {
         sidebar
-    }
+    },
+    data() {
+        return {
+            book: '',
+            url: 'http://127.0.0.1:8000/storage/covers/',
+        }
+    },
+    methods: {
+        fetchBookDetail() {
+            axios.get(`http://127.0.0.1:8000/api/book/${this.$route.params.id}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+                .then(response => {
+                    this.book = response.data.data;
+                })
+                .catch(err => {
+                    console.log('Failed to fetch data', err);
+                })
+        }
+    },
+    mounted() {
+        this.fetchBookDetail();
+    },
+
 }
 </script>
