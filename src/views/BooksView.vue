@@ -5,10 +5,10 @@
         <section class="w-5/6 px-5 py-4 bg-[#eaeaea]">
             <div class="header flex justify-between items-center">
                 <h1 class="py-3 text-xl font-semibold">Pengguna</h1>
-                <!-- <span class="w-2/6 p-4 text-green-500 text-sm font-semibold bg-green-100 rounded">
+                <span v-if="message" class="w-2/6 p-4 text-green-500 text-sm font-semibold bg-green-100 rounded">
                     <i class="ri-check-line mr-2"></i>
-                    Pesan Sukses
-                </span> -->
+                    {{ message }}
+                </span>
                 <div class="accessibility flex gap-4">
                     <input type="text"
                         class="h-max px-4 py-2 rounded focus:outline-none border-2 border-white focus:border-blue-500"
@@ -31,8 +31,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(book, index) in books" :key="index" class="hover:bg-gray-100">
-                            <td class="px-2 py-4 text-center">{{ index + 1 }}</td>
+                        <tr v-for="(book, index) in books" :key="book.id" class="hover:bg-gray-100">
+                            <td class="px-2 py-4 text-center">{{ index + 1 + (pagination.current_page - 1) *
+                                pagination.per_page }}</td>
                             <td class="truncate">{{ book.title }}</td>
                             <td class="truncate">{{ book.author }}</td>
                             <td v-if="book.status == 1">
@@ -60,24 +61,25 @@
                         </tr>
                     </tbody>
                 </table>
-                <!-- <div class="px-4 mt-4 flex justify-end gap-4">
-                    <button
-                        :class="[{ 'opacity-50 cursor-not-allowed': '' }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']">
+                <div class="px-4 mt-4 flex justify-end gap-4">
+                    <button @click="fetchBooks(prev)" :disabled="!prev"
+                        :class="[{ 'opacity-50 cursor-not-allowed': !prev }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']">
                         <i class="ri-arrow-left-double-line"></i>
                     </button>
-                    <button
-                        :class="[{ 'opacity-50 cursor-not-allowed': '' }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']">
+                    <button @click="fetchBooks(next)" :disabled="!next"
+                        :class="[{ 'opacity-50 cursor-not-allowed': !next }, 'px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out']">
                         <i class="ri-arrow-right-double-line"></i>
                     </button>
-                </div> -->
+                </div>
             </div>
         </section>
     </main>
 </template>
 
 <script>
-import axios from 'axios'
-import sidebar from '@/components/sidebar.vue'
+import axios from 'axios';
+import router from '@/router';
+import sidebar from '@/components/sidebar.vue';
 
 export default {
     components: {
@@ -86,18 +88,32 @@ export default {
     data() {
         return {
             books: [],
+            next: '',
+            prev: '',
+            pagination: {
+                current_page: 1,
+                per_page: 10,
+            },
+            message: '',
         }
     },
     methods: {
-        fetchBooks() {
-            axios.get('http://127.0.0.1:8000/api/books', {
+        fetchBooks(url = 'http://127.0.0.1:8000/api/books') {
+            axios.get(url, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             })
                 .then(response => {
-                    this.books = response.data.data;
-                    console.log(response.data.data);
+                    const data = response.data.data;
+                    this.books = data.data;
+                    this.pagination = {
+                        current_page: data.current_page,
+                        per_page: data.per_page,
+                    };
+                    this.next = data.next_page_url;
+                    this.prev = data.prev_page_url;
+                    console.log(this.pagination);
                 })
                 .catch(err => {
                     console.error(err);
@@ -105,6 +121,14 @@ export default {
         }
     },
     mounted() {
+        this.message = this.$route.query.message;
+        if (this.message) {
+            setTimeout(() => {
+                this.message = '';
+                router.push('/books')
+            }, 1500);
+        }
+
         this.fetchBooks();
     },
 }
