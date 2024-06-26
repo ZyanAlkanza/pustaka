@@ -38,18 +38,19 @@
                             <div class="message h-6">
                                 <small v-if="errors.book_detail" class="text-red-500 font-semibold">{{
                                     errors.book_detail[0]
-                                }}</small>
+                                    }}</small>
                             </div>
                         </div>
 
                         <div class="image flex flex-col">
                             <label for="image">Sampul Buku</label>
-                            <input type="file" name="image" id="image" :class="errors.image ? 'border-red-500' : ''"
+                            <input type="file" @change="previewImage" name="image" id="image"
+                                :class="errors.image ? 'border-red-500' : ''"
                                 class="px-2 py-1 mt-2 bg-[#eaeaea] rounded focus:outline-none border-2 border-gray-100 focus:border-blue-500">
                             <div class="message h-6">
                                 <small v-if="errors.image" class="text-red-500 font-semibold">{{
                                     errors.image[0]
-                                }}</small>
+                                    }}</small>
                             </div>
                         </div>
                     </form>
@@ -60,7 +61,7 @@
                 </div>
 
                 <div class="w-1/3 p-4 ml-4 rounded bg-white">
-                    <img src="/public/default_cover.png" class="rounded" alt="cover_buku">
+                    <img :src="imagePreview || '/public/default_cover.png'" class="rounded" alt="cover_buku">
                 </div>
             </div>
 
@@ -82,21 +83,27 @@ export default {
             title: '',
             author: '',
             book_detail: '',
-            image: '',
+            image: null,
+            imagePreview: '',
             errors: '',
             message: ''
         }
     },
     methods: {
         bookAdd() {
-            axios.post(`http://127.0.0.1:8000/api/book`, {
-                title: this.title,
-                author: this.author,
-                book_detail: this.book_detail,
-            },
+            const formData = new FormData();
+            formData.append('title', this.title);
+            formData.append('author', this.author);
+            formData.append('book_detail', this.book_detail);
+            if (this.image) {
+                formData.append('image', this.image);
+            }
+
+            axios.post(`http://127.0.0.1:8000/api/book`, formData,
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'multipart/form-data'
                     }
                 })
                 .then(response => {
@@ -106,6 +113,11 @@ export default {
                 .catch(error => {
                     this.errors = error.response.data.error;
                 })
+        },
+        previewImage(event) {
+            const file = event.target.files[0];
+            this.image = file;
+            this.imagePreview = URL.createObjectURL(file);
         }
     },
 }
