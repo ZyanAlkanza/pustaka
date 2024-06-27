@@ -10,7 +10,7 @@
                     {{ message }}
                 </span>
                 <div class="accessibility flex gap-4">
-                    <input type="text"
+                    <input type="text" v-model="search" @input="searchData()"
                         class="h-max px-4 py-2 rounded focus:outline-none border-2 border-white focus:border-blue-500"
                         placeholder="Pencarian">
                     <router-link to="/bookAdd" title="Tambah Data"
@@ -110,13 +110,17 @@ export default {
             },
             message: '',
             bookIdToDelete: null,
+            search: '',
         }
     },
     methods: {
-        fetchBooks(url = 'http://127.0.0.1:8000/api/books') {
+        fetchBooks(url = 'http://127.0.0.1:8000/api/books', search = '') {
             axios.get(url, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                params: {
+                    search: search
                 }
             })
                 .then(response => {
@@ -162,6 +166,9 @@ export default {
                 .catch(error => {
                     console.log(error.response.data);
                 })
+        },
+        searchData() {
+            this.fetchBooks('http://127.0.0.1:8000/api/books', this.search);
         }
     },
     mounted() {
