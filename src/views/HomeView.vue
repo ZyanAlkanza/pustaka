@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     fetchBooks() {
-      axios.get('http://127.0.0.1:8000/api/books')
+      axios.get('http://127.0.0.1:8000/api/home')
         .then(response => {
           this.books = response.data.data;
         })

@@ -53,7 +53,7 @@
                                     class="px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">
                                     <i class="ri-edit-line"></i>
                                 </router-link>
-                                <button
+                                <button @click="deleteData(book.id)"
                                     class="px-4 py-1 text-red-500 hover:text-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out">
                                     <i class="ri-delete-bin-line"></i>
                                 </button>
@@ -73,6 +73,20 @@
                 </div>
             </div>
         </section>
+
+        <!-- modal -->
+        <dialog ref="deleteModal" class="modal-middle p-8 bg-[#eaeaea] shadow-lg rounded">
+            <div class="modal-box flex flex-col justify-center items-center">
+                <h3 class="font-bold text-lg text-red-500"><i class="ri-delete-bin-line mr-2"></i>Hapus Buku</h3>
+                <p class="py-4">Apakah Anda yakin ingin menghapus buku ini?</p>
+                <div class="modal-action gap-4">
+                    <button @click="confirmDelete"
+                        class="px-6 py-2 text-red-500 hover:text-white bg-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out">Hapus</button>
+                    <button @click="closeModal"
+                        class="px-6 py-2 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">Batal</button>
+                </div>
+            </div>
+        </dialog>
     </main>
 </template>
 
@@ -95,6 +109,7 @@ export default {
                 per_page: 10,
             },
             message: '',
+            bookIdToDelete: null,
         }
     },
     methods: {
@@ -113,10 +128,39 @@ export default {
                     };
                     this.next = data.next_page_url;
                     this.prev = data.prev_page_url;
-                    console.log(this.pagination);
                 })
                 .catch(err => {
                     console.error(err);
+                })
+        },
+        deleteData(bookId) {
+            this.bookIdToDelete = bookId;
+            this.$refs.deleteModal.showModal();
+        },
+        closeModal() {
+            this.$refs.deleteModal.close();
+        },
+        confirmDelete() {
+            this.deleteBookData(this.bookIdToDelete);
+            this.closeModal();
+        },
+        deleteBookData(bookId) {
+            axios.delete(`http://127.0.0.1:8000/api/book/${bookId}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    this.fetchBooks();
+                    this.message = response.data.message;
+                    if (this.message) {
+                        setTimeout(() => {
+                            this.message = '';
+                        }, 1500);
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response.data);
                 })
         }
     },
