@@ -11,6 +11,7 @@ import UserEditView from '@/views/UserEditView.vue'
 import BooksView from '@/views/BooksView.vue'
 import BookDetailView from '@/views/BookDetailView.vue'
 import BookAddView from '@/views/BookAddView.vue'
+import BookEditView from '@/views/BookEditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +75,12 @@ const router = createRouter({
       path: '/bookAdd',
       name: 'bookAdd',
       component: BookAddView
+    },
+    {
+      path: '/bookEdit/:id',
+      name: 'bookEdit',
+      component: BookEditView
+
     }
 
 
