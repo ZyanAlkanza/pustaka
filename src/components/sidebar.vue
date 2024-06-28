@@ -14,7 +14,7 @@
             <router-link to="/books" :class="{ 'text-blue-500': $route.path === '/books' }"
                 class="px-4 py-2 text-base hover:text-white hover:bg-blue-500 transition duration-300 ease-in-out"><i
                     class="ri-book-open-line mr-2"></i>Buku</router-link>
-            <router-link to="/transaction" :class="{ 'text-blue-500': $route.path === '/transaction' }"
+            <router-link to="/transactions" :class="{ 'text-blue-500': $route.path === '/transactions' }"
                 class="px-4 py-2 text-base hover:text-white hover:bg-blue-500 transition duration-300 ease-in-out"><i
                     class="ri-file-transfer-line mr-2"></i>Transaksi</router-link>
         </div>
