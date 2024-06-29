@@ -26,8 +26,8 @@
                             <td scope="col" class="w-[3%] px-2 py-4 text-center">No</td>
                             <td scope="col" class="w-[20%]">Nama Peminjam</td>
                             <td scope="col" class="w-[20%] px-2">Judul Buku</td>
-                            <td scope="col" class="w-[10%] px-2">Tanggal Pinjam</td>
-                            <td scope="col" class="w-[10%]">Tanggal Kembali</td>
+                            <td scope="col" class="w-[13%] px-2 text-right">Tanggal Pinjam</td>
+                            <td scope="col" class="w-[13%] text-right">Tanggal Pengembalian</td>
                             <td scope="col" class="w-[20%] text-center">Aksi</td>
                         </tr>
                     </thead>
@@ -36,10 +36,10 @@
                             <td class="px-2 py-4 text-center">{{ index + 1 }}</td>
                             <td class="truncate">{{ transaction.user.username }}</td>
                             <td class="px-2 truncate">{{ transaction.book.title }}</td>
-                            <td class="px-2 truncate">{{ transaction.formatted_loan_date }}</td>
-                            <td>{{ transaction.formatted_date_of_return }}</td>
+                            <td class="px-2 truncate text-right">{{ transaction.formatted_loan_date }}</td>
+                            <td class="text-right">{{ transaction.formatted_date_of_return }}</td>
                             <td class="text-center flex justify-center gap-2">
-                                <router-link to="" title="Detail"
+                                <router-link :to="`/transactionDetail/${transaction.id}`" title="Detail"
                                     class="px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">
                                     <i class="ri-eye-line"></i>
                                 </router-link>

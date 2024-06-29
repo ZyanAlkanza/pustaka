@@ -13,6 +13,7 @@ import BookDetailView from '@/views/BookDetailView.vue'
 import BookAddView from '@/views/BookAddView.vue'
 import BookEditView from '@/views/BookEditView.vue'
 import TransactionView from '@/views/TransactionsView.vue'
+import TransactionDetailView from '@/views/TransactionDetailView.vue' 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,6 +88,11 @@ const router = createRouter({
       path: '/transactions',
       name:'transaction',
       component: TransactionView
+    },
+    {
+      path: '/transactionDetail/:id',
+      name: 'transactionDetail',
+      component: TransactionDetailView
     }
 
 
