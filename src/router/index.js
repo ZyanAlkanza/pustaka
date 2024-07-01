@@ -87,7 +87,7 @@ const router = createRouter({
     },
     {
       path: '/transactions',
-      name:'transaction',
+      name:'transactions',
       component: TransactionView
     },
     {
