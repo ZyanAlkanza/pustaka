@@ -43,7 +43,7 @@
                                     class="px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">
                                     <i class="ri-eye-line"></i>
                                 </router-link>
-                                <router-link to="" title="Edit"
+                                <router-link :to="`/transactionEdit/${transaction.id}`" title="Edit"
                                     class="px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">
                                     <i class="ri-edit-line"></i>
                                 </router-link>

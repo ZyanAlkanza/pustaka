@@ -25,7 +25,7 @@
                     <div class="book_id flex flex-col">
                         <label for="book_id">Judul Buku</label>
                         <select name="book_id" id="book_id" v-model="book"
-                            :class="errors.user_id ? 'border-red-500' : ''"
+                            :class="errors.book_id ? 'border-red-500' : ''"
                             class="px-2 py-1 mt-2 bg-[#eaeaea] rounded focus:outline-none border-2 border-gray-100 focus:border-blue-500">
                             <option value="">--Pilih--</option>
                             <option v-for="book in books" :value="book.id" :disabled="book.status == 2"

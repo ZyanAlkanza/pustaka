@@ -15,6 +15,7 @@ import BookEditView from '@/views/BookEditView.vue'
 import TransactionView from '@/views/TransactionsView.vue'
 import TransactionDetailView from '@/views/TransactionDetailView.vue' 
 import TransactionAddView from '@/views/TransactionAddView.vue'
+import TransactionEditView from '@/views/TransactionEditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -99,6 +100,11 @@ const router = createRouter({
       path: '/transactionAdd',
       name: 'transactionAdd',
       component: TransactionAddView
+    },
+    {
+      path: '/transactionEdit/:id',
+      name: 'transactionEdit',
+      component: TransactionEditView
     }
 
 
