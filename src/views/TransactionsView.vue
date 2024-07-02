@@ -94,7 +94,7 @@ export default {
             })
                 .then(response => {
                     this.transactions = response.data.data;
-                    console.log(response.data.data);
+                    // console.log(response.data.data);
                 })
                 .catch(error => {
                     console.error(error.response.data);
