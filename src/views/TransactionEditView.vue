@@ -111,9 +111,6 @@ export default {
                 })
         },
         editTransactionData() {
-            // console.log(this.transaction.user_id);
-            // console.log('prev', this.transaction.book_id);
-            // console.log('new', this.transaction.newBook_id);
             axios.post(`http://127.0.0.1:8000/api/transaction/${this.$route.params.id}`, {
                 _method: 'patch',
                 user_id: this.transaction.user_id,

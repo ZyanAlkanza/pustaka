@@ -47,7 +47,7 @@
                                     class="px-4 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">
                                     <i class="ri-edit-line"></i>
                                 </router-link>
-                                <button
+                                <button @click="deleteTransactionModal(transaction.id)"
                                     class="px-4 py-1 text-red-500 hover:text-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out">
                                     <i class="ri-delete-bin-line"></i>
                                 </button>
@@ -67,6 +67,20 @@
                 </div> -->
             </div>
         </section>
+
+        <!-- modal -->
+        <dialog ref="deleteModal" class="modal-middle p-8 bg-[#eaeaea] shadow-lg rounded">
+            <div class="modal-box flex flex-col justify-center items-center">
+                <h3 class="font-bold text-lg text-red-500"><i class="ri-delete-bin-line mr-2"></i>Hapus Pengguna</h3>
+                <p class="py-4">Apakah Anda yakin ingin menghapus pengguna ini?</p>
+                <div class="modal-action gap-4">
+                    <button @click="confirmDeleteTransaction"
+                        class="px-6 py-2 text-red-500 hover:text-white bg-white hover:bg-red-600 border-2 border-red-500 hover:border-red-600 rounded transition duration-300 ease-in-out">Hapus</button>
+                    <button @click="closeModal"
+                        class="px-6 py-2 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded transition duration-300 ease-in-out">Batal</button>
+                </div>
+            </div>
+        </dialog>
     </main>
 </template>
 
@@ -83,6 +97,7 @@ export default {
         return {
             transactions: [],
             message: '',
+            transactionIdToDelete: null,
         }
     },
     methods: {
@@ -95,6 +110,36 @@ export default {
                 .then(response => {
                     this.transactions = response.data.data;
                     // console.log(response.data.data);
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                })
+        },
+        deleteTransactionModal(transactionId) {
+            this.transactionIdToDelete = transactionId;
+            this.$refs.deleteModal.showModal();
+        },
+        closeModal() {
+            this.$refs.deleteModal.close();
+        },
+        confirmDeleteTransaction() {
+            this.deleteTransactionData(this.transactionIdToDelete);
+            this.closeModal();
+        },
+        deleteTransactionData(transactionId) {
+            axios.delete(`http://127.0.0.1:8000/api/transaction/${transactionId}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    this.fetchTransaction();
+                    this.message = response.data.message;
+                    if (this.message) {
+                        setTimeout(() => {
+                            this.message = '';
+                        }, 1500);
+                    }
                 })
                 .catch(error => {
                     console.error(error.response.data);
