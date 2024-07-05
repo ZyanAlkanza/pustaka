@@ -10,7 +10,7 @@
                     {{ message }}
                 </span>
                 <div class="accessibility flex gap-4">
-                    <input type="text"
+                    <input type="text" v-model="search" @input="searchData()"
                         class="h-max px-4 py-2 rounded focus:outline-none border-2 border-white focus:border-blue-500"
                         placeholder="Pencarian">
                     <router-link to="/transactionAdd" title="Tambah Data"
@@ -105,13 +105,17 @@ export default {
             },
             message: '',
             transactionIdToDelete: null,
+            search: '',
         }
     },
     methods: {
-        fetchTransaction(url = 'http://127.0.0.1:8000/api/transactions') {
+        fetchTransaction(url = 'http://127.0.0.1:8000/api/transactions', search = '') {
             axios.get(url, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                params: {
+                    search: search
                 }
             })
                 .then(response => {
@@ -158,6 +162,9 @@ export default {
                 .catch(error => {
                     console.error(error.response.data);
                 })
+        },
+        searchData() {
+            this.fetchTransaction('http://127.0.0.1:8000/api/transactions', this.search);
         }
     },
     mounted() {
