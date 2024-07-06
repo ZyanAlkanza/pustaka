@@ -19,9 +19,35 @@
                     class="ri-file-transfer-line mr-2"></i>Transaksi</router-link>
         </div>
         <div class="menuLogout h-fit flex">
-            <a href=""
+            <a href="#" @click="logout()"
                 class="w-full h-max px-4 py-2 text-base text-red-500 hover:text-white hover:bg-red-500 transition duration-300 ease-in-out"><i
                     class="ri-logout-box-line mr-2"></i>Keluar</a>
         </div>
     </section>
 </template>
+
+<script>
+import axios from 'axios';
+import router from '@/router';
+
+export default {
+    methods: {
+        logout() {
+            axios.get(`http://127.0.0.1:8000/api/logout`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('role');
+                    router.push({ name: 'login', query: { message: response.data.message } });
+                })
+                .catch(error => {
+                    console.log('gagal', error);
+                })
+        }
+    },
+}
+</script>
