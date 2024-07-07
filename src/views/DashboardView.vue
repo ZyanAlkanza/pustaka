@@ -57,7 +57,7 @@ export default {
         this.token = localStorage.getItem('token');
         this.role = localStorage.getItem('role');
         if (this.token == null || this.role != 1) {
-            router.push('/');
+            router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
         }
 
         this.fetchTransactionData();

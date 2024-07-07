@@ -4,7 +4,7 @@
 
         <section class="w-5/6 px-5 py-4 bg-[#eaeaea]">
             <div class="header flex justify-between items-center">
-                <h1 class="py-3 text-xl font-semibold">Pengguna</h1>
+                <h1 class="py-3 text-xl font-semibold">Buku</h1>
                 <span v-if="message" class="w-2/6 p-4 text-green-500 text-sm font-semibold bg-green-100 rounded">
                     <i class="ri-check-line mr-2"></i>
                     {{ message }}
@@ -111,6 +111,8 @@ export default {
             message: '',
             bookIdToDelete: null,
             search: '',
+            token: '',
+            role: '',
         }
     },
     methods: {
@@ -172,6 +174,12 @@ export default {
         }
     },
     mounted() {
+        this.token = localStorage.getItem('token');
+        this.role = localStorage.getItem('role');
+        if (this.token == null || this.role != 1) {
+            router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
+        }
+
         this.message = this.$route.query.message;
         if (this.message) {
             setTimeout(() => {

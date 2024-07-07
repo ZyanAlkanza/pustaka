@@ -38,7 +38,7 @@
                             <div class="message h-6">
                                 <small v-if="errors.book_detail" class="text-red-500 font-semibold">{{
                                     errors.book_detail[0]
-                                    }}</small>
+                                }}</small>
                             </div>
                         </div>
 
@@ -89,6 +89,8 @@ export default {
             imagePreview: '',
             url: 'http://127.0.0.1:8000/storage/covers/',
             errors: '',
+            token: '',
+            role: '',
 
         }
     },
@@ -137,6 +139,12 @@ export default {
         }
     },
     mounted() {
+        this.token = localStorage.getItem('token');
+        this.role = localStorage.getItem('role');
+        if (this.token == null || this.role != 1) {
+            router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
+        }
+
         this.fetchBook();
     },
 }

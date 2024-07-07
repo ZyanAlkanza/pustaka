@@ -36,6 +36,7 @@
 <script>
 import sidebar from '@/components/sidebar.vue';
 import axios from 'axios';
+import router from '@/router';
 
 export default {
     components: {
@@ -45,6 +46,8 @@ export default {
         return {
             book: '',
             url: 'http://127.0.0.1:8000/storage/covers/',
+            token: '',
+            role: '',
         }
     },
     methods: {
@@ -64,6 +67,12 @@ export default {
         }
     },
     mounted() {
+        this.token = localStorage.getItem('token');
+        this.role = localStorage.getItem('role');
+        if (this.token == null || this.role != 1) {
+            router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
+        }
+
         this.fetchBookDetail();
     },
 

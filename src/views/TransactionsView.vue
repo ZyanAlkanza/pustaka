@@ -106,6 +106,8 @@ export default {
             message: '',
             transactionIdToDelete: null,
             search: '',
+            token: '',
+            role: '',
         }
     },
     methods: {
@@ -168,6 +170,12 @@ export default {
         }
     },
     mounted() {
+        this.token = localStorage.getItem('token');
+        this.role = localStorage.getItem('role');
+        if (this.token == null || this.role != 1) {
+            router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
+        }
+
         this.message = this.$route.query.message;
         if (this.message) {
             setTimeout(() => {

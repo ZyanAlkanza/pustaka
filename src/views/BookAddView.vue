@@ -86,7 +86,9 @@ export default {
             image: null,
             imagePreview: '',
             errors: '',
-            message: ''
+            message: '',
+            token: '',
+            role: '',
         }
     },
     methods: {
@@ -118,6 +120,13 @@ export default {
             const file = event.target.files[0];
             this.image = file;
             this.imagePreview = URL.createObjectURL(file);
+        }
+    },
+    mounted() {
+        this.token = localStorage.getItem('token');
+        this.role = localStorage.getItem('role');
+        if (this.token == null || this.role != 1) {
+            router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
         }
     },
 }

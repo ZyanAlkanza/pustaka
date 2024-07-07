@@ -91,6 +91,8 @@ export default {
             gender: '',
             phone: '',
             errors: '',
+            token: '',
+            role: '',
         }
     },
     methods: {
@@ -112,6 +114,13 @@ export default {
                 .catch(error => {
                     this.errors = error.response.data.data
                 })
+        }
+    },
+    mounted() {
+        this.token = localStorage.getItem('token');
+        this.role = localStorage.getItem('role');
+        if (this.token == null || this.role != 1) {
+            router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
         }
     },
 }
