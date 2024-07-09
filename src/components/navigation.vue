@@ -25,7 +25,7 @@
                                 class="ri-book-open-line mr-1"></i>Buku Saya</router-link></li>
                     <li class="px-2 py-2 hover:bg-gray-200 rounded-md"><router-link to="/mark"><i
                                 class="ri-bookmark-line mr-1"></i>Koleksi</router-link></li>
-                    <li class="px-2 py-2 hover:bg-gray-200 rounded-md"><a href="#" @click="logout()"><i
+                    <li class="px-2 py-2 text-red-500 hover:bg-gray-200 rounded-md"><a href="#" @click="logout()"><i
                                 class="ri-logout-box-line mr-1"></i>Keluar</a></li>
                     <!-- <li><router-link to="/logout"><i class="ri-logout-box-line mr-1"></i>Keluar</router-link></li> -->
                 </ul>
@@ -66,6 +66,7 @@ export default {
             })
                 .then(response => {
                     localStorage.removeItem('token');
+                    localStorage.removeItem('id');
                     localStorage.removeItem('username');
                     localStorage.removeItem('role');
                     router.push({ name: 'login', query: { message: response.data.message } })

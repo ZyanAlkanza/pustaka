@@ -40,6 +40,7 @@ export default {
             })
                 .then(response => {
                     localStorage.removeItem('token');
+                    localStorage.removeItem('id');
                     localStorage.removeItem('username');
                     localStorage.removeItem('role');
                     router.push({ name: 'login', query: { message: response.data.message } });

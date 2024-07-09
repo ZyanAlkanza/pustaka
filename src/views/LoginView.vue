@@ -3,7 +3,7 @@
         <div class="alert w-1/4 h-20 mt-20 flex">
             <span v-if="errors" class="w-full p-4 mt-6 text-red-500 text-sm font-semibold bg-red-100 rounded">
                 <i class="ri-close-large-line mr-2"></i>
-                {{ errors.message }}
+                {{ errors }}
             </span>
             <span v-if="alert" class="w-full p-4 mt-6 text-green-500 text-sm font-semibold bg-green-100 rounded">
                 <i class="ri-check-line mr-2"></i>
@@ -57,7 +57,7 @@ export default {
             password: '',
             alert: '',
             errors: '',
-            validations: '',
+            validations: {},
             token: '',
             message: '',
         }
@@ -85,13 +85,15 @@ export default {
                     }
                 })
                 .catch(error => {
-                    this.errors = error.response.data;
+                    console.log(error.response.data.message);
+                    const data = error.response.data;
+                    this.validations = data.data || {};
+                    this.errors = data.message;
                     if (this.errors) {
                         setTimeout(() => {
                             this.errors = '';
                         }, 1500);
                     }
-                    this.validations = error.response.data.data;
                 });
         }
 
