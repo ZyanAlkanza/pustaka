@@ -17,6 +17,7 @@ import TransactionDetailView from '@/views/TransactionDetailView.vue'
 import TransactionAddView from '@/views/TransactionAddView.vue'
 import TransactionEditView from '@/views/TransactionEditView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import MyBookView from '@/views/MyBookView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -111,6 +112,11 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView
+    },
+    {
+      path:'/myBook',
+      name: 'myBook',
+      component: MyBookView
     }
 
 

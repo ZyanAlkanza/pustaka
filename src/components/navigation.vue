@@ -21,7 +21,7 @@
                 <ul class="p-2 shadow menu dropdown-content z-[1] bg-gray-100 rounded-md w-52">
                     <li class="px-2 py-2 hover:bg-gray-200 rounded-md"><router-link to="/profile"><i
                                 class="ri-user-6-line mr-1"></i>Profil</router-link></li>
-                    <li class="px-2 py-2 hover:bg-gray-200 rounded-md"><router-link to="/profile"><i
+                    <li class="px-2 py-2 hover:bg-gray-200 rounded-md"><router-link to="/myBook"><i
                                 class="ri-book-open-line mr-1"></i>Buku Saya</router-link></li>
                     <li class="px-2 py-2 hover:bg-gray-200 rounded-md"><router-link to="/mark"><i
                                 class="ri-bookmark-line mr-1"></i>Koleksi</router-link></li>
