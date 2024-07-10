@@ -4,22 +4,23 @@
     <main class="h-5/6 px-20 py-10">
         <div class="grid grid-cols-3 gap-x-4">
 
-            <div class="p-4 bg-gray-100 flex rounded">
+            <div v-for="transaction in transactions" class="p-4 bg-gray-100 flex rounded">
                 <div class="w-1/3">
-                    <img src="/public/default_cover.png" class="h-40 rounded" alt="cover_buku">
+                    <img :src="transaction.book.image ? url + transaction.book.image : '/default_cover.png'"
+                        class="h-40 rounded" alt="cover_buku">
                 </div>
                 <div class="w-2/3">
-                    <h3 class="text-lg font-semibold">Laut Bercerita</h3>
-                    <h5 class="mb-4 text-gray-500 text-xs">Leila</h5>
+                    <h3 class="text-lg font-semibold">{{ transaction.book.title }}</h3>
+                    <h5 class="mb-4 text-gray-500 text-xs">{{ transaction.book.author }}</h5>
 
                     <div class="flex">
                         <div class="w-1/2 flex flex-col">
                             <label class="text-gray-500 text-sm">Tanggal Pinjam</label>
-                            <h5>18 Jan 2024</h5>
+                            <h5>{{ transaction.format_loan_date }}</h5>
                         </div>
                         <div class="w-1/2 flex flex-col">
                             <label class="text-gray-500 text-sm">Tanggal Kembali</label>
-                            <h5>18 Feb 2024</h5>
+                            <h5>{{ transaction.format_date_of_return }}</h5>
                         </div>
                     </div>
 
@@ -36,10 +37,37 @@
 
 <script>
 import navigation from '@/components/navigation.vue';
+import axios from 'axios';
 
 export default {
     components: {
         navigation
-    }
+    },
+    data() {
+        return {
+            transactions: [],
+            url: 'http://127.0.0.1:8000/storage/covers/',
+            id: localStorage.getItem('id'),
+        }
+    },
+    methods: {
+        fetchTransactions() {
+            axios.get(`http://127.0.0.1:8000/api/myBook/${this.id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    this.transactions = response.data.data;
+                    console.log(response.data.data);
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                })
+        }
+    },
+    mounted() {
+        this.fetchTransactions();
+    },
 }
 </script>
