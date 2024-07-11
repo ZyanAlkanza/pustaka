@@ -18,6 +18,7 @@ import TransactionAddView from '@/views/TransactionAddView.vue'
 import TransactionEditView from '@/views/TransactionEditView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import MyBookView from '@/views/MyBookView.vue'
+import MarkView from '@/views/MarkView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -117,6 +118,11 @@ const router = createRouter({
       path:'/myBook',
       name: 'myBook',
       component: MyBookView
+    },
+    {
+      path: '/mark',
+      name: 'mark',
+      component: MarkView
     }
 
 
