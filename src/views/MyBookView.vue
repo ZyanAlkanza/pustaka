@@ -24,13 +24,18 @@
                         </div>
                     </div>
 
-                    <button
+                    <button @click="returnMyBook(transaction.id, transaction.book_id)"
                         class="w-full py-2 mt-4 flex justify-center items-center text-white bg-blue-500 hover:bg-blue-600 rounded"><i
                             class="ri-arrow-go-back-line mr-2"></i>Kembalikan
                         Buku</button>
                 </div>
             </div>
+        </div>
 
+        <div v-if="successToast" class="fixed right-10 bottom-10">
+            <div class="px-4 py-4 text-white bg-blue-500 rounded">
+                <i class="ri-check-line mr-2"></i><span>Buku Berhasil Dikembalikan</span>
+            </div>
         </div>
     </main>
 </template>
@@ -48,6 +53,7 @@ export default {
             transactions: [],
             url: 'http://127.0.0.1:8000/storage/covers/',
             id: localStorage.getItem('id'),
+            successToast: false,
         }
     },
     methods: {
@@ -63,6 +69,24 @@ export default {
                 })
                 .catch(error => {
                     console.error(error.response.data);
+                })
+        },
+        returnMyBook($id, $bookId) {
+            axios.put(`http://127.0.0.1:8000/api/returnMyBook/${$id}`, {
+                book_id: $bookId
+            })
+                .then(response => {
+                    this.fetchTransactions();
+                    this.successToast = true;
+                    if (this.successToast) {
+                        setTimeout(() => {
+                            this.successToast = false;
+                        }, 1500);
+                    }
+                    console.log(response.data.message);
+                })
+                .catch(error => {
+                    console.error(error);
                 })
         }
     },
