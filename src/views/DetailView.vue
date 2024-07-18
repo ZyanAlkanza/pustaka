@@ -3,7 +3,7 @@
         <navigation />
         <section v-if="loaded" class="h-5/6 px-20 py-10 flex">
             <div class="w-2/6 flex justify-center">
-                <img :src="url + (book.image || '/default_cover.png')" class="h-full" alt="cover_buku">
+                <img :src="url + (book.image || '/default_cover.png')" class="h-full rounded" alt="cover_buku">
             </div>
             <div class="w-4/6">
                 <h1 class="text-2xl font-semibold">{{ book.title }}</h1>
@@ -24,7 +24,7 @@
                         <i :class="isBookMarked ? 'ri-bookmark-line' : 'ri-bookmark-line'"></i>
                         {{ isBookMarked ? 'Hapus dari Koleksi' : 'Tambah ke Koleksi' }}
                     </button>
-                    <button :disabled="book.status == 2"
+                    <button @click="loanBook()" :disabled="book.status == 2"
                         :title="book.status == 2 ? 'Buku Tidak Tersedia' : 'Pinjam Buku'"
                         :class="book.status == 2 ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600'"
                         class="px-8 py-2 text-white rounded transition duration-300 ease-in-out">
@@ -43,6 +43,7 @@
 
 <script>
 import navigation from '@/components/navigation.vue';
+import router from '@/router';
 import axios from 'axios';
 
 export default {
@@ -87,6 +88,9 @@ export default {
                 })
         },
         toggleMark() {
+            if (localStorage.getItem('token') == null) {
+                router.push({ name: 'login', query: { message: 'Login Dahulu!' } })
+            }
             axios.post(`http://127.0.0.1:8000/api/toggleMark`, {
                 user_id: this.user_id,
                 book_id: this.book_id,
@@ -105,6 +109,31 @@ export default {
                 })
                 .catch(error => {
                     console.error(error.response.data.message);
+                })
+        },
+        loanBook() {
+            if (localStorage.getItem('id') == null) {
+                router.push({ name: 'login', query: { message: 'Login Dahulu!' } });
+            }
+            axios.post(`http://127.0.0.1:8000/api/loanBook`, {
+                user_id: this.user_id,
+                book_id: this.$route.params.id
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    this.fetchbook();
+                    this.successToastMessage = response.data.message;
+                    this.successToast = true;
+                    setTimeout(() => {
+                        this.successToast = false;
+                    }, 1500);
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
                 })
         }
     },
