@@ -4,11 +4,11 @@ import navigation from '../components/navigation.vue'
 </script>
 
 <template>
+  <navigation @search="filterBooks" class="w-full fixed" />
   <main class="h-full flex flex-col bg-[#eaeaea]">
-    <navigation />
 
-    <section class="px-20 py-10 grid grid-cols-8 gap-6">
-      <router-link :to="`/detail/${book.id}`" v-for="(book, index) in books" :key="index"
+    <section class="px-20 py-10 mt-20 grid grid-cols-8 gap-6">
+      <router-link :to="`/detail/${book.id}`" v-for="(book, index) in filteredBooks" :key="index"
         class="h-max px-2 pt-2 pb-4 flex flex-col bg-white rounded hover:shadow-md transition duration-300 ease-in-out">
         <div class="image h-[75%] flex justify-center rounded bg-gray-100">
           <img :src="url + (book.image || 'default_cover.png')" class="h-full rounded" alt="cover_buku">
@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       books: [],
+      filteredBooks: [],
       url: 'http://127.0.0.1:8000/storage/covers/'
     }
   },
@@ -41,10 +42,17 @@ export default {
       axios.get('http://127.0.0.1:8000/api/home')
         .then(response => {
           this.books = response.data.data;
+          this.filteredBooks = this.books;
         })
         .catch(error => {
           console.log(error, 'Failed to fetch books');
         })
+    },
+    filterBooks(query) {
+      this.filteredBooks = this.books.filter(book =>
+        book.title.toLowerCase().includes(query.toLowerCase()) ||
+        book.author.toLowerCase().includes(query.toLowerCase())
+      );
     }
   },
   mounted() {

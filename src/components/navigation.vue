@@ -5,7 +5,7 @@
             <span class="ml-[-4px] text-3xl font-bold">ustaka</span>
         </router-link>
         <div class="button flex justify-center items-center gap-x-4">
-            <searchbar v-if="$route.name == 'home'" />
+            <searchbar v-if="$route.name == 'home'" @search="onSearch" />
             <router-link to="/login" v-if="token == null"
                 class="px-6 py-2 text-white bg-blue-500 hover:bg-blue-600 transition duration-300 ease-in-out rounded">
                 <i class="ri-login-box-line mr-1"></i>Masuk
@@ -58,6 +58,9 @@ export default {
         searchbar
     },
     methods: {
+        onSearch(query) {
+            this.$emit('search', query);
+        },
         logout() {
             axios.get('http://127.0.0.1:8000/api/logout', {
                 headers: {
