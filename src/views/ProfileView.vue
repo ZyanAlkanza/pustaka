@@ -4,16 +4,16 @@
         <div class="w-1/3 py-10 gap-y-4 flex flex-col items-center">
             <img :src="user.image ? url + user.image : '/public/default_profile.png'"
                 class="w-1/2 border-2 border-blue-500 rounded-full" alt="profile">
-            <button
-                class="w-40 py-1 text-white bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded"><i
+            <router-link to="/profileEdit"
+                class="w-40 py-1 text-white text-center bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded"><i
                     class="ri-pencil-line mr-2"></i>Edit
-                Profil</button>
+                Profil</router-link>
             <button
                 class="w-40 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded">Ubah
                 Kata Sandi</button>
         </div>
         <div class="w-2/3 py-10">
-            <h1 class="mb-4 text-blue-500 font-semibold">Informasi Akun</h1>
+            <h1 class="mb-4 text-blue-500 font-semibold">Informasi Profil</h1>
 
             <label class="text-sm text-gray-500">Nama Pengguna</label>
             <h5 class="mb-2">{{ user.username }}</h5>
