@@ -20,6 +20,8 @@ import ProfileView from '@/views/ProfileView.vue'
 import MyBookView from '@/views/MyBookView.vue'
 import MarkView from '@/views/MarkView.vue'
 import ProfileEditView from '@/views/ProfileEditView.vue'
+import PasswordEditView from '@/views/PasswordEditView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -88,7 +90,6 @@ const router = createRouter({
       path: '/bookEdit/:id',
       name: 'bookEdit',
       component: BookEditView
-
     },
     {
       path: '/transactions',
@@ -129,6 +130,11 @@ const router = createRouter({
       path:'/profileEdit',
       name: 'profileEdit',
       component: ProfileEditView
+    },
+    {
+      path: '/passwordEdit',
+      name: 'passwordEdit',
+      component: PasswordEditView
     }
 
 

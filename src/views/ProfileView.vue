@@ -8,9 +8,9 @@
                 class="w-40 py-1 text-white text-center bg-blue-500 hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded"><i
                     class="ri-pencil-line mr-2"></i>Edit
                 Profil</router-link>
-            <button
-                class="w-40 py-1 text-blue-500 hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded">Ubah
-                Kata Sandi</button>
+            <router-link to="/passwordEdit"
+                class="w-40 py-1 text-blue-500 text-center hover:text-white hover:bg-blue-600 border-2 border-blue-500 hover:border-blue-600 rounded">Ubah
+                Kata Sandi</router-link>
         </div>
         <div class="w-2/3 py-10">
             <h1 class="mb-4 text-blue-500 font-semibold">Informasi Profil</h1>
