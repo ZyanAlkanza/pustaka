@@ -112,7 +112,7 @@ export default {
                 })
         },
         editUserData() {
-            axios.put(`http://127.0.0.1:8000/api/user/${this.$route.params.id}`,
+            axios.put(`http://127.0.0.1:8000/api/userEdit`,
                 this.userData,
                 {
                     headers: {

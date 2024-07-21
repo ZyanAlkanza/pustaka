@@ -47,6 +47,9 @@ export default {
             token: '',
         }
     },
+    watch() {
+
+    },
     mounted() {
         setTimeout(() => {
             this.delay = true;

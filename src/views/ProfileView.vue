@@ -27,6 +27,12 @@
             <h5 class="mb-2">{{ date.date_format }}</h5>
         </div>
     </main>
+
+    <div v-if="successToast" class="fixed right-10 bottom-10">
+        <div class="px-4 py-4 text-white bg-blue-500 rounded">
+            <i class="ri-check-line mr-2"></i><span>Profil Berhasil Diedit</span>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -46,6 +52,8 @@ export default {
             url: 'http://127.0.0.1:8000/storage/profile/',
             token: '',
             role: '',
+            successToast: false,
+            message: '',
         }
     },
     methods: {
@@ -66,6 +74,15 @@ export default {
         }
     },
     mounted() {
+        this.message = this.$route.query.message;
+        if (this.message) {
+            this.successToast = true;
+            setTimeout(() => {
+                this.successToast = false;
+                router.push('/profile');
+            }, 1500);
+        }
+
         this.token = localStorage.getItem('token');
         this.role = localStorage.getItem('role');
         if (this.role != 3) {
