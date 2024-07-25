@@ -39,7 +39,10 @@
                 <i class="ri-login-box-line mr-1"></i>
                 Masuk
             </button>
-            <h5 class="my-6 text-sm text-center">Belum memiliki akun? <router-link to="/register"
+            <router-link to="forgot"
+                class="mt-6 text-sm text-center text-blue-500 hover:text-blue-600 font-semibold transition duration-300 ease-in-out">Lupa
+                kata sandi</router-link>
+            <h5 class="mt-4 text-sm text-center">Belum memiliki akun? <router-link to="/register"
                     class="text-blue-500 hover:text-blue-600 font-semibold transition duration-300 ease-in-out">Registrasi</router-link>
             </h5>
         </form>

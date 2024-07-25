@@ -21,6 +21,7 @@ import MyBookView from '@/views/MyBookView.vue'
 import MarkView from '@/views/MarkView.vue'
 import ProfileEditView from '@/views/ProfileEditView.vue'
 import PasswordEditView from '@/views/PasswordEditView.vue'
+import ForgotView from '@/views/ForgotView.vue'
 
 
 const router = createRouter({
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterView
+    },
+    {
+      path:'/forgot',
+      name:'forgot',
+      component: ForgotView
     },
     {
       path: '/detail/:id',
