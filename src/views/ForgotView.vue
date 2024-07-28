@@ -56,6 +56,7 @@ export default {
                 email: this.email,
             })
                 .then(response => {
+                    sessionStorage.setItem('email', this.email);
                     this.successMessages = response.data.message + ', Silahkan cek email anda!';
                     setTimeout(() => {
                         router.push('/recovery');
