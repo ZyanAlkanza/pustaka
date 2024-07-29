@@ -23,6 +23,7 @@ import ProfileEditView from '@/views/ProfileEditView.vue'
 import PasswordEditView from '@/views/PasswordEditView.vue'
 import ForgotView from '@/views/ForgotView.vue'
 import RecoveryView from '@/views/RecoveryView.vue'
+import ResetView from '@/views/ResetView.vue'
 
 
 const router = createRouter({
@@ -147,6 +148,11 @@ const router = createRouter({
       path:'/recovery',
       name:'recovery',
       component: RecoveryView
+    },
+    {
+      path:'/reset',
+      name:'reset',
+      component:ResetView
     }
 
 
